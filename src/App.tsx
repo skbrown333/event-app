@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Store } from "./store/Store";
+import { Firebase, FirebaseContext } from "./firebase";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+/* Components */
+import { Map } from "./components/Map/Map";
+import { Signup } from "./components/Signup/Signup";
+
+/* Styles */
+import "./App.scss";
+
+const firebaseInstance = new Firebase();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FirebaseContext.Provider value={firebaseInstance}>
+      <Store>
+        <Router>
+          <Switch>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/">
+              <Map />
+            </Route>
+          </Switch>
+        </Router>
+      </Store>
+    </FirebaseContext.Provider>
   );
 }
 
