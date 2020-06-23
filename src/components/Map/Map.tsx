@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  FunctionComponent,
+} from "react";
 import { Context } from "../../store/Store";
 import mapboxgl from "mapbox-gl";
 
@@ -19,7 +25,7 @@ import "./_map.scss";
  * @example
  * <Map />
  */
-export const Map = () => {
+export const Map: FunctionComponent = () => {
   const [context] = useContext<AppContext | any>(Context);
   const [map, setMap] = useState(null);
   const [events, setEvents] = useState<Array<Event>>(context.events);

@@ -39,7 +39,7 @@ export const Signup = () => {
   };
 
   return (
-    <div id="signup">
+    <div id="ea-signup">
       <Spin indicator={loadingIcon} spinning={false}>
         <Form
           className="event-form"
