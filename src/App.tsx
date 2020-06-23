@@ -11,6 +11,7 @@ import { Signup } from "./components/Signup/Signup";
 /* Styles */
 import "./App.scss";
 import { CreateEvent } from "./components/CreateEvent/CreateEvent";
+import { Login } from "./components/Login/Login";
 
 const firebaseInstance = new Firebase();
 
@@ -26,6 +27,9 @@ function App() {
             <Switch>
               <Route path="/signup">
                 <Signup />
+              </Route>
+              <Route path="/login">
+                <Login />
               </Route>
               <Route path="/event/create">
                 <CreateEvent />

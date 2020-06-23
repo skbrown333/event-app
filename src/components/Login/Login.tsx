@@ -4,31 +4,30 @@ import { useHistory } from "react-router-dom";
 /* Components */
 import { Button, Form, Input, message } from "antd";
 import GoogleIcon from "../../google-icon.svg";
-/* Services */
 
 /* Store */
 import { Firebase, FirebaseContext } from "../../firebase";
 
 /* Styles */
-import "./_signup.scss";
+import "./_login.scss";
 
 /**
- * Signup Page
+ * Login Page
  *
  * @example
- * <Signup />
+ * <Login />
  */
-export const Signup = () => {
+export const Login = () => {
   const context = useContext<Firebase | null>(FirebaseContext);
   const history = useHistory();
 
   async function handleSubmit(values) {
     const { email, password } = values;
     try {
-      await context?.createUserWithEmailAndPassword(email, password);
+      await context?.signInWithEmailAndPassword(email, password);
       history.push("/");
     } catch (err) {
-      message.error(err.message);
+      message.error("Email or password is incorrect!");
     }
   }
 
@@ -73,26 +72,6 @@ export const Signup = () => {
         >
           <Input.Password size="large" />
         </Form.Item>
-        <Form.Item
-          className="password"
-          label="Confirm Password"
-          name="confirm-password"
-          dependencies={["password"]}
-          hasFeedback
-          rules={[
-            { required: true },
-            ({ getFieldValue }) => ({
-              validator(rule, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject("Passwords not match!");
-              },
-            }),
-          ]}
-        >
-          <Input.Password size="large" />
-        </Form.Item>
         <Form.Item>
           <Button
             type="primary"
@@ -100,7 +79,7 @@ export const Signup = () => {
             size="large"
             style={{ fontWeight: "bold", width: "100%" }}
           >
-            Signup
+            Login
           </Button>
         </Form.Item>
         <Form.Item>
