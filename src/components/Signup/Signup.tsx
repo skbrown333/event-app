@@ -1,19 +1,18 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 /* UI */
 import { Button, Form, Input, Spin, message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import GoogleIcon from "../../google-icon.svg";
 /* Services */
 /* Store */
 import { Firebase, FirebaseContext } from "../../firebase";
 /* Styles */
 import "./_signup.scss";
 
-interface State {
-  loading: boolean;
-}
-
 export const Signup = () => {
   const context = useContext<Firebase | null>(FirebaseContext);
+  const history = useHistory();
   const loadingIcon = (
     <LoadingOutlined type="loading" style={{ fontSize: 24 }} spin />
   );
@@ -22,6 +21,16 @@ export const Signup = () => {
     const { email, password } = values;
     try {
       await context?.createUserWithEmailAndPassword(email, password);
+      history.push("/");
+    } catch (err) {
+      message.error(err.message);
+    }
+  }
+
+  async function signInWithGoogle() {
+    try {
+      await context?.signInWithGoogle();
+      history.push("/");
     } catch (err) {
       message.error(err.message);
     }
@@ -64,6 +73,26 @@ export const Signup = () => {
           >
             <Input.Password size="large" />
           </Form.Item>
+          <Form.Item
+            className="password"
+            label="Confirm Password"
+            name="confirm-password"
+            dependencies={["password"]}
+            hasFeedback
+            rules={[
+              { required: true },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject("Passwords not match!");
+                },
+              }),
+            ]}
+          >
+            <Input.Password size="large" />
+          </Form.Item>
           <Form.Item>
             <Button
               type="primary"
@@ -72,6 +101,18 @@ export const Signup = () => {
               style={{ fontWeight: "bold", width: "100%" }}
             >
               Signup
+            </Button>
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="link"
+              size="large"
+              style={{ fontWeight: "bold", width: "100%" }}
+              icon={<img src={GoogleIcon} alt="Google" />}
+              onClick={signInWithGoogle}
+              className="sign-in-with-google"
+            >
+              Sign in with Google
             </Button>
           </Form.Item>
         </Form>
