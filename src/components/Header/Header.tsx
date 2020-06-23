@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 
 /* Components */
-import { Button } from "antd";
+import { Button, Avatar } from "antd";
 import UilPlus from "@iconscout/react-unicons/icons/uil-plus";
 
 /* Styles */
@@ -24,6 +24,12 @@ export const Header: FunctionComponent = () => {
           Create Event
         </Button>
       </Link>
+      <Avatar
+        style={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
+        size="large"
+      >
+        U
+      </Avatar>
     </header>
   );
 };
