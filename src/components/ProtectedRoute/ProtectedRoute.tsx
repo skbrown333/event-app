@@ -4,6 +4,12 @@ import { Route, Redirect } from "react-router-dom";
 /* Store */
 import { Context } from "../../store/Store";
 
+/**
+ * Route wrapper to protect authenticated routes
+ *
+ * @example
+ * <ProtectedRoute path="/" component={Component} />
+ */
 export const ProtectedRoute: FunctionComponent<any> = ({
   component: Component,
   ...rest
