@@ -13,8 +13,8 @@ export const Reducer = (state, action) => {
       return { ...state, ...{ events: state.concat(action.payload) } };
     case Actions.ADD_EVENT_ACTION:
       return { ...state, ...{ events: [action.payload].concat(state) } };
-    case Actions.UPDATE_ACCOUNT_ACTION:
-      return { ...state, ...{ account: action.payload } };
+    case Actions.UPDATE_USER_ACTION:
+      return { ...state, user: action.payload };
     default:
       return state;
   }

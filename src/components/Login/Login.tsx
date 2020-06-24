@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 /* Components */
 import { Button, Form, Input, message } from "antd";
@@ -7,6 +7,8 @@ import GoogleIcon from "../../google-icon.svg";
 
 /* Store */
 import { Firebase, FirebaseContext } from "../../firebase";
+import { Context } from "../../store/Store";
+import { updateUser } from "../../store/actions";
 
 /* Styles */
 import "./_login.scss";
@@ -18,14 +20,19 @@ import "./_login.scss";
  * <Login />
  */
 export const Login = () => {
+  const dispatch = useContext(Context)[1];
   const context = useContext<Firebase | null>(FirebaseContext);
   const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
 
   async function handleSubmit(values) {
     const { email, password } = values;
     try {
       await context?.signInWithEmailAndPassword(email, password);
-      history.push("/");
+      const user = await context?.getCurrentUser();
+      dispatch(updateUser(user));
+      history.push(from);
     } catch (err) {
       message.error("Email or password is incorrect!");
     }
@@ -34,7 +41,9 @@ export const Login = () => {
   async function signInWithGoogle() {
     try {
       await context?.signInWithGoogle();
-      history.push("/");
+      const user = await context?.getCurrentUser();
+      dispatch(updateUser(user));
+      history.push(from);
     } catch (err) {
       message.error(err.message);
     }
