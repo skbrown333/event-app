@@ -17,6 +17,12 @@ import { Context } from "../../store/Store";
 /* Styles */
 import "./_cover-photo.scss";
 
+/**
+ * Cover photo upload component
+ *
+ * @example
+ * <CoverPhoto />
+ */
 export const CoverPhoto: FunctionComponent = () => {
   const [image, setImage] = useState<string | null>(null);
   const [context] = useContext(Context);
