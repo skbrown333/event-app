@@ -2,7 +2,7 @@ import { MAP } from "../constants/constants";
 import { Event } from "../models/Event";
 
 export interface AppContext {
-  account?: any;
+  user?: any;
   events: Array<Event>;
   current_location?: any;
   center?: any;
@@ -11,9 +11,9 @@ export interface AppContext {
 }
 
 export const InitialState: AppContext = {
-  account: {},
+  user: null,
   events: [],
-  current_location: {},
+  current_location: [],
   center: MAP.default_location,
   zoom: 15,
   toast: [],

@@ -6,7 +6,7 @@ export const UPDATE_FILTER_ACTION = "UpdateFilterAction";
 export const UPDATE_LOCATION_ACTION = "UpdateLocationAction";
 export const UPDATE_CENTER_ACTION = "UpdateCenterAction";
 export const UPDATE_ZOOM_ACTION = "UpdateZoomAction";
-export const UPDATE_ACCOUNT_ACTION = "UpdateAccountAction";
+export const UPDATE_USER_ACTION = "UpdateUserAction";
 
 export function addEvent(event: any) {
   return {
@@ -15,10 +15,10 @@ export function addEvent(event: any) {
   };
 }
 
-export function updateAccount(account) {
+export function updateUser(user) {
   return {
-    type: UPDATE_ACCOUNT_ACTION,
-    payload: account,
+    type: UPDATE_USER_ACTION,
+    payload: user,
   };
 }
 

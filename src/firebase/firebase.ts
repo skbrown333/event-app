@@ -47,4 +47,26 @@ export class Firebase {
   signInWithGoogle = async () => {
     await this.auth.signInWithPopup(this.googleProvider);
   };
+
+  /**
+   * Gets the current user
+   */
+  getCurrentUser = async () => {
+    return new Promise((resolve, reject) => {
+      this.auth.onAuthStateChanged(function (user) {
+        if (user) {
+          resolve(user);
+        } else {
+          reject(Error("Error fetching user"));
+        }
+      });
+    });
+  };
+
+  /**
+   * Signs the user out
+   */
+  signOut = async () => {
+    await this.auth.signOut();
+  };
 }
